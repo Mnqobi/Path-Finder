@@ -180,23 +180,25 @@ public class PathFinder {
                  //Else its a processed 
                 map[current.getX()][current.getY()] = "\"";
             }
-
-            if (current.getX() - 1 >= 0) {
-                Optional.ofNullable(blockMap[current.getX() - 1][current.getY()]).ifPresent(surrounding::add);
-            }
-            if (current.getY() - 1 >= 0) {
+            
+            //Now we find the neighbouring blocks
+            //TOP
+            if (current.getY() - 1 >= 0) 
                 Optional.ofNullable(blockMap[current.getX()][current.getY() - 1]).ifPresent(surrounding::add);
-            }
-            if (current.getY() + 1 < blockMap[0].length) {
+            //BOTTOM
+            if (current.getY() + 1 < blockMap[0].length) 
                 Optional.ofNullable(blockMap[current.getX()][current.getY() + 1]).ifPresent(surrounding::add);
-            }
-            if (current.getX() + 1 < blockMap.length) {
-                Optional.ofNullable(blockMap[current.getX() + 1][current.getY()]).ifPresent(surrounding::add);
-            }
+            //LEFT
+            if (current.getX() - 1 >= 0)
+                Optional.ofNullable(blockMap[current.getX() - 1][current.getY()]).ifPresent(surrounding::add);
+            //RIGHT
+            if (current.getX() + 1 < blockMap.length) 
+                Optional.ofNullable(blockMap[current.getX() + 1][current.getY()]).ifPresent(surrounding::add);            
 
             //Lets not waste time processing walls or already visited blocks
             surrounding.removeIf(block -> "W,\"".contains(map[block.getX()][block.getY()]));
-
+            
+            //Lets determine our next best move
             for (Block block : surrounding) {
                 determineMovement(current, block);
             }
