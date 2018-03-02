@@ -40,7 +40,7 @@ public class PathFinder {
         initializeMap(file);
 
         //2. Initialize the block map and define the distance of each
-        //block from the destination, whilst defining all walls
+        //block from the destination
         initilizeGrid();
 
         //3. Determine path from Start to End
@@ -100,9 +100,8 @@ public class PathFinder {
             negate this proccess and remove it from the ordered queue 
          */
         if (!visited || totalCostOfMovement < surrounding.getTotalCostOfMovement()) {
-            surrounding.setTotalCostOfMovement(totalCostOfMovement);
-            surrounding.setVisited(true);
             //Leave breadcrumb
+            surrounding.setTotalCostOfMovement(totalCostOfMovement);
             surrounding.setPrevious(current);
             if (!visited) {
                 visitedBlocks.add(surrounding);
@@ -131,26 +130,7 @@ public class PathFinder {
                                 + Math.pow((destinationBlock.getX() - x), 2))
                 );
             }
-        }
-
-        /*
-            Set the total movement cost for the first block to 0 i.e how
-            much effort it'll take to move one block, relative to how far away
-            it is from the end (we want to pick the lowest one's to move to 1st)
-         */
-        blockMap[startBlock.getX()][startBlock.getY()].setTotalCostOfMovement(0);
-
-        /*
-            Set all the obstructions so we ignore those blocks and not waste 
-            any effort when we start walking the path
-         */
-        for (int x = 0; x < map.length; ++x) {
-            for (int y = 0; y < map[x].length; y++) {
-                if (map[x][y].equals("W")) {
-                    setWalls(x, y);
-                }
-            }
-        }
+        }    
     }
 
     public void determinePath() {
@@ -177,7 +157,7 @@ public class PathFinder {
             if (current.equals(blockMap[destinationBlock.getX()][destinationBlock.getY()])) {
                 return;
             } else {
-                 //Else its a processed 
+                 //Else its a processed block
                 map[current.getX()][current.getY()] = "\"";
             }
             
@@ -205,12 +185,6 @@ public class PathFinder {
 
             current = visitedBlocks.poll();
         } while (current != null);
-    }
-
-    public void setWalls(int x, int y) {
-        Block block = new Block(x, y);
-        block.setWall(true);
-        blockMap[x][y] = block;
     }
 
     public void mapPathToGrid() {

@@ -10,9 +10,6 @@ package za.co.stdbnk.pathfinder;
  * @author Mnqobi
  */
 public class Block{      
-    private boolean visited = false;
-    private boolean truePath = false;
-    private boolean wall = false;
     
     private double distanceToEndBlock = 0;
     private double totalCostOfMovement = 0;
@@ -23,30 +20,6 @@ public class Block{
     Block(int x, int y){
         this.x = x;
         this.y = y; 
-    }
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
-
-    public boolean isTruePath() {
-        return truePath;
-    }
-
-    public void setTruePath(boolean truePath) {
-        this.truePath = truePath;
-    }
-
-    public boolean isWall() {
-        return wall;
-    }
-
-    public void setWall(boolean wall) {
-        this.wall = wall;
     }
 
     public double getDistanceToEndBlock() {
