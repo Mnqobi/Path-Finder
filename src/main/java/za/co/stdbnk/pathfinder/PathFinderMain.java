@@ -21,6 +21,7 @@ public class PathFinderMain {
     public static void main(String[] args){
         boolean prettyWay = false; //Using JFileChooser
         File file = null ;
+        final double COST_PER_MOVE = 1.0;
         
         try {
             if(prettyWay){
@@ -37,7 +38,7 @@ public class PathFinderMain {
             };
 
             PathFinder pathFinder = new PathFinder();
-            Path solution = pathFinder.findPath(file);
+            Path solution = pathFinder.findPath(file, COST_PER_MOVE);
             
             System.out.println("Map\n");
             System.out.println(Path.printMap(solution.getMap()));

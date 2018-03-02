@@ -31,9 +31,10 @@ public class PathFinder {
     private PriorityQueue<Block> visitedBlocks;
     private Path solution;
 
-    private final double costPerMove = 1.0;
+    private double costPerMove;
 
-    public Path findPath(File file) {
+    public Path findPath(File file, double costPerMove) {
+        this.costPerMove = costPerMove;
         solution = new Path();
 
         //1. Read file, map it and determine the start and end destinations
